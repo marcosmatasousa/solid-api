@@ -1,5 +1,5 @@
 import { expect, describe, it, beforeAll, beforeEach } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
+import { InMemoryUsersRepository } from "../repositories/in-memory/in-memory-users-repository";
 import { RegisterUseCase } from "./register";
 import { IUsersRepository } from "@/repositories/users-repository";
 import { compare } from "bcryptjs";
@@ -46,8 +46,8 @@ describe("Register Use Case", () => {
       password: "123456",
     });
 
-    expect(async () => {
-      const { user } = await registerUserUseCase.execute({
+    await expect(async () => {
+      await registerUserUseCase.execute({
         name: "Fulano",
         email: "fulano@exemplo.com",
         password: "123456",
