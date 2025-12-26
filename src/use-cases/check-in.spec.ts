@@ -4,6 +4,8 @@ import { InMemoryCheckInsRepository } from "../repositories/in-memory/in-memory-
 import { CheckInUseCase } from "./check-in";
 import { InMemoryGymsRepository } from "../repositories/in-memory/in-memory-gyms-repository";
 import { Decimal } from "@prisma/client/runtime/client";
+import { MaxDistanceError } from "./errors/max-distance-error";
+import { MaxNumberOfCheckInsError } from "./errors/max-number-of-check-ins-error";
 
 let checkInsRepository: ICheckInsRepository;
 let gymsRepository: InMemoryGymsRepository;
@@ -61,7 +63,7 @@ describe("Register Check-in Case", () => {
         userLatitude: -22.900338,
         userLongitude: -47.07729,
       });
-    }).rejects.toBeInstanceOf(Error);
+    }).rejects.toBeInstanceOf(MaxNumberOfCheckInsError);
   });
 
   it("should be able to check in in different dates", async () => {
@@ -103,6 +105,6 @@ describe("Register Check-in Case", () => {
         userLatitude: -22.900338,
         userLongitude: -47.07729,
       });
-    }).rejects.toBeInstanceOf(Error);
+    }).rejects.toBeInstanceOf(MaxDistanceError);
   });
 });
