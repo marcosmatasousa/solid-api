@@ -1,6 +1,7 @@
 import { Prisma, CheckIn } from "@prisma/client";
 import { ICheckInsRepository } from "../check-ins-repository";
 import { prisma } from "@/lib/prisma";
+import { check } from "zod";
 
 export class PrismaCheckInsRepository implements ICheckInsRepository {
   async create(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn> {
@@ -45,5 +46,20 @@ export class PrismaCheckInsRepository implements ICheckInsRepository {
     });
 
     return checkIn;
+  }
+
+  async findManyByUserId(userId: string, page: number): Promise<CheckIn[]> {
+    const PAGE_SIZE = 20;
+    const SKIP_AMOUNT = (page - 1) * PAGE_SIZE;
+
+    const checkIns = await prisma.checkIn.findMany({
+      where: {
+        user_id: userId,
+      },
+      skip: SKIP_AMOUNT,
+      take: PAGE_SIZE,
+    });
+
+    return checkIns;
   }
 }
