@@ -1,7 +1,6 @@
 import { Prisma, CheckIn } from "@prisma/client";
 import { ICheckInsRepository } from "../check-ins-repository";
 import { prisma } from "@/lib/prisma";
-import { check } from "zod";
 
 export class PrismaCheckInsRepository implements ICheckInsRepository {
   async create(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn> {
@@ -61,5 +60,11 @@ export class PrismaCheckInsRepository implements ICheckInsRepository {
     });
 
     return checkIns;
+  }
+
+  async countByUserId(userId: string): Promise<number> {
+    const nums = await prisma.checkIn.count({ where: { user_id: userId } });
+
+    return nums;
   }
 }
