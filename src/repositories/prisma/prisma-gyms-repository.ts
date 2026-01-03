@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Gym, Prisma } from "@prisma/client";
-import { IGymsRepository } from "../gyms-repository";
+import { FindManyNearbyParams, IGymsRepository } from "../gyms-repository";
 import { Decimal } from "@prisma/client/runtime/client";
 
 export class PrismaGymsRepository implements IGymsRepository {
@@ -39,6 +39,28 @@ export class PrismaGymsRepository implements IGymsRepository {
       skip: SKIP_AMOUNT,
       take: PAGE_SIZE,
     });
+
+    return gyms;
+  }
+
+  async findManyNearby({
+    latitude,
+    longitude,
+  }: FindManyNearbyParams): Promise<Gym[]> {
+    const MAX_DISTANCE_IN_KILOMETERS = 10;
+    const gyms = await prisma.$queryRaw<Gym[]>`
+      SELECT *
+      FROM "Gym"
+      WHERE (
+        6371 * acos(
+          cos(radians(${latitude})) *
+          cos(radians(latitude)) *
+          cos(radians(longitude) - radians(${longitude})) +
+          sin(radians(${latitude})) *
+          sin(radians(latitude))
+        )
+      ) <= ${MAX_DISTANCE_IN_KILOMETERS}
+    `;
 
     return gyms;
   }
