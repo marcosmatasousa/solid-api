@@ -1,0 +1,387 @@
+{
+  "info": {
+    "_postman_id": "57ae63cb-01d2-46bd-9ba0-07defaa0ef6c",
+    "name": "Wellhub-like SOLID API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39210076"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register",
+          "id": "6c24e0cb-ae19-4c25-b5dd-9180779f46d8",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{JWT}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"johndoe@example.com\",\r\n    \"password\": \"johndoe123\" \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Authenticate",
+          "id": "7a36f9da-4519-49c8-aa4d-4cc716da2e8f",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \r\n    \"email\": \"admin@admin.com\",\r\n    \"password\": \"admin\" \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/sessions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "sessions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get profile",
+          "id": "9ec22220-9f13-428b-b2ee-55b9e5e47ba5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMjhhNWQ5YmYtMWMxZC00MmUyLTk5OTAtMGY4MjdiOTA5OTg3IiwiaWF0IjoxNzY4ODM3MTY2LCJleHAiOjE3Njg4Mzc3NjZ9.fPpul7MtYIxf_KqsNHnoH71p--iN-fSkxmUg9JyQyXk",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{base_url}}/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh token",
+          "id": "601129c9-9f03-4b49-afe5-7b1e4143ea3d",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"emal\": \"marco@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/token/refresh",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "token",
+                "refresh"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "4c58174c-d87a-4cf3-97a3-b2ff7cfbde42",
+      "description": "Users requests"
+    },
+    {
+      "name": "Gyms",
+      "item": [
+        {
+          "name": "Create",
+          "id": "4c2a702f-2bc2-4ce0-b4cd-e9fe632c9f82",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiIwNDVjNDMyZi05ODRhLTQ2Y2ItYWRmNi04ZjBmMjllMzJmZmIiLCJpYXQiOjE3Njg4NDE4NDYsImV4cCI6MTc2ODg0MjQ0Nn0.kfh2iuuS9gv06OIU11ULnad2Ig791svu3KoFjO6o4u0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"A new gym\",\r\n    \"description\": \"A good gym\",\r\n    \"phone\": \"281-330-8004\",\r\n    \"latitude\": 52.7621952,\r\n    \"longitude\": -170.071863\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/gyms/create",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "gyms",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "id": "42160060-788b-4939-b16c-65bd2fe99043",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/gyms/search?query=A%20new%20gym&page=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "gyms",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "A%20new%20gym"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search nearby",
+          "id": "e2c34aba-9807-4851-8b48-2fe8c8963385",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/gyms/nearby?latitude=52.7621952&longitude=-170.071863",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "gyms",
+                "nearby"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "52.7621952"
+                },
+                {
+                  "key": "longitude",
+                  "value": "-170.071863"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "cce0354c-a229-4220-84d4-31dc0bf7c7d2",
+      "description": "Gyms requests"
+    },
+    {
+      "name": "Check-ins",
+      "item": [
+        {
+          "name": "Create",
+          "id": "cd6c65f0-9675-4687-b878-d30ba185d77e",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMjhhNWQ5YmYtMWMxZC00MmUyLTk5OTAtMGY4MjdiOTA5OTg3IiwiaWF0IjoxNzY4ODQzNjUxLCJleHAiOjE3Njg4NDQyNTF9.mbCwYokfPAV1Y9saeAOqNicePxkDgmov8XbhqqnZiw4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"latitude\": 52.7621952,\r\n    \"longitude\": -170.071863\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/check-ins/780de359-30ce-4fe5-8b38-ffa3cbd0875f",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "check-ins",
+                "780de359-30ce-4fe5-8b38-ffa3cbd0875f"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check-in history",
+          "id": "e31c3d3e-947e-4f53-9a45-b1a2241dbe92",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiTUVNQkVSIiwic3ViIjoiMjhhNWQ5YmYtMWMxZC00MmUyLTk5OTAtMGY4MjdiOTA5OTg3IiwiaWF0IjoxNzY4ODQzNjUxLCJleHAiOjE3Njg4NDQyNTF9.mbCwYokfPAV1Y9saeAOqNicePxkDgmov8XbhqqnZiw4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/check-ins/history?page=1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "check-ins",
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Metrics",
+          "id": "8e18600f-3e2f-4657-975a-381034a27237",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/check-ins/metrics",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "check-ins",
+                "metrics"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate",
+          "id": "2facdd03-b76e-4e77-859f-aa0093af2bb7",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiIwNDVjNDMyZi05ODRhLTQ2Y2ItYWRmNi04ZjBmMjllMzJmZmIiLCJpYXQiOjE3Njg4NDM3MTUsImV4cCI6MTc2ODg0NDMxNX0.-g7IGBS_q1o1KOe3yHNJoZDXKLeQt0MkqRh6juH6ei8\"",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \r\n    \"email\": \"johndoe@example.com\",\r\n    \"password\": \"johndoe123\"\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/check-ins/f4c17c41-c464-4f70-9fa5-fa78c67f5924/validate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "check-ins",
+                "f4c17c41-c464-4f70-9fa5-fa78c67f5924",
+                "validate"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "0ff3c6da-6772-4de8-8d12-5b3675742128",
+      "description": "Check-ins requests"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "workspace": {
+    "id": "bed0152a-2db7-4ee4-8f70-c6427cc15622"
+  },
+  "entities": {
+    "collections": [
+      "..\\postman\\collections\\Wellhub-like SOLID API.postman_collection.json"
+    ],
+    "environments": [
+      "..\\postman\\environments\\Wellhub-like.postman_environment.json"
+    ],
+    "specs": [],
+    "flows": [],
+    "globals": []
+  }
+}

@@ -7,6 +7,8 @@ import { env } from "./env";
 import fastifyJwt from "@fastify/jwt";
 import fastifyCookie from "@fastify/cookie";
 import { healthRoutes } from "./http/controllers/health/routes";
+import { seed } from "../prisma/seed";
+import { AppError } from "./use-cases/errors/app-error";
 
 export const app = fastify();
 
@@ -34,8 +36,14 @@ app.setErrorHandler((error, request, reply) => {
       .send({ message: "Validation error.", issues: z.treeifyError(error) });
   }
 
+  if (error instanceof AppError) {
+    return reply.status(error.statusCode).send({ message: error.message });
+  }
+
   if (env.NODE_ENV !== "production") {
     console.log(error);
   }
   return reply.status(500).send({ message: "Internal server error." });
 });
+
+seed();
