@@ -50,7 +50,7 @@ export class PrismaGymsRepository implements IGymsRepository {
     const MAX_DISTANCE_IN_KILOMETERS = 10;
     const gyms = await prisma.$queryRaw<Gym[]>`
       SELECT *
-      FROM "Gym"
+      FROM "gyms"
       WHERE (
         6371 * acos(
           cos(radians(${latitude})) *
