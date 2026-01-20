@@ -1,4 +1,4 @@
-import fastify from "fastify";
+import fastify, { FastifyError } from "fastify";
 import { usersRoutes } from "@/http/controllers/users/routes";
 import { gymsRoutes } from "./http/controllers/gyms/routes";
 import { checkInsRoutes } from "./http/controllers/check-ins/routes";
@@ -29,11 +29,17 @@ app.register(gymsRoutes);
 app.register(checkInsRoutes);
 app.register(healthRoutes);
 
-app.setErrorHandler((error, request, reply) => {
+app.setErrorHandler((error: FastifyError, request, reply) => {
   if (error instanceof ZodError) {
     return reply
       .status(400)
       .send({ message: "Validation error.", issues: z.treeifyError(error) });
+  }
+
+  if (error.code === "FST_ERR_CTP_INVALID_JSON_BODY") {
+    return reply.status(400).send({
+      message: "Invalid JSON body",
+    });
   }
 
   if (error instanceof AppError) {

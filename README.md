@@ -56,6 +56,8 @@ You can also create as much users as you like by POSTing on `/users`.
 
 In order to use the app, you can import the `Wellhub-like SOLID API` collection using Postman. The JSON file is located at the `postman` folder. And `Wellhub-like` environtment can be found in that folder as well, don't forget to fill the values of the variables in order to access authenticated routes.
 
+Or, if you want, feel free to use curl to execute the requests.
+
 # Routes
 
 Base URL: `http://localhost:3000/`
@@ -84,9 +86,9 @@ Example request:
 curl -X POST http://localhost:3000/users \
   -H "Content-Type: application/json" \
   -d '{
-    "name": John,
-    "email": Doe,
-    "password": johndoe123
+    "name": "John",
+    "email": "johndoe@example.com",
+    "password": "johndoe123"
   }'
 ```
 
@@ -108,11 +110,11 @@ If successful, returns [`200`](rest/troubleshooting.md#status-codes) and a JWT T
 Example request:
 
 ```shell
-curl -X POST http://localhost:3000/users \
+curl -X POST http://localhost:3000/sessions \
   -H "Content-Type: application/json" \
   -d '{
-    "email": Doe,
-    "password": johndoe123
+    "email": "johndoe@example.com",
+    "password": "johndoe123"
   }'
 ```
 
@@ -220,7 +222,7 @@ If successful, returns [`200`](rest/troubleshooting.md#status-codes)
 Example request:
 
 ```shell
-curl -X GET "http://localhost:3000/gyms/search?query=A new gym&page=1"
+curl -X GET "http://localhost:3000/gyms/search?query=A%20new%20gym&page=1"
 ```
 
 Example response:
@@ -266,7 +268,7 @@ If successful, returns [`200`](rest/troubleshooting.md#status-codes)
 Example request:
 
 ```shell
-curl -X GET "http://localhost:3000//gyms/nearby?latitude=52.7621952&longitude=-170.071863"
+curl -X GET "http://localhost:3000/gyms/nearby?latitude=52.7621952&longitude=-170.071863"
 ```
 
 Example response:
@@ -304,12 +306,12 @@ POST /check-ins/{gymId}
 
 Supported attributes:
 
-| Attribute  | Type   | Required | Description   |
-| ---------- | ------ | -------- | ------------- |
-| `gymId`    | string | Yes      | ID of the gym |
-| `latitude` | number | Yes      | User latitude |
-| `phone`    | string | No       | User latitude |
-| `token`    | string | Yes      | JWT Token     |
+| Attribute   | Type   | Required | Description   |
+| ----------- | ------ | -------- | ------------- |
+| `gymId`     | string | Yes      | ID of the gym |
+| `latitude`  | number | Yes      | User latitude |
+| `longitude` | number | Yes      | User latitude |
+| `token`     | string | Yes      | JWT Token     |
 
 If successful, returns [`201 Created`](rest/troubleshooting.md#status-codes)
 
@@ -345,7 +347,7 @@ Example request:
 ```shell
 curl -X GET http://localhost:3000/check-ins/history?page=1 \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE" \
-  -H "Content-Type: application/json" \
+  -H "Content-Type: application/json"
 ```
 
 Example response:
@@ -383,7 +385,7 @@ Example request:
 ```shell
 curl -X GET http://localhost:3000/check-ins/history?page=1 \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE" \
-  -H "Content-Type: application/json" \
+  -H "Content-Type: application/json"
 ```
 
 Example response:
@@ -415,8 +417,13 @@ Example request:
 ```shell
 curl -X PATCH http://localhost:3000/check-ins/{checkInID}/validate \
   -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE" \
-  -H "Content-Type: application/json" \
+  -H "Content-Type: application/json"
 ```
+
+## Tests
+
+The application has also a set of tests that you can run by executing:
+`npm run test`
 
 Feel free to contact me. Thank you very much.
 

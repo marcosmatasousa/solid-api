@@ -6,10 +6,14 @@ import { create } from "./create";
 import { verifyUserRole } from "@/http/middlewares/verify-user-role";
 
 export async function gymsRoutes(app: FastifyInstance) {
-  app.addHook("onRequest", verifyJWT);
+  app.register(async (app) => {
+    app.get("/gyms/search", search);
+    app.get("/gyms/nearby", nearby);
+  });
 
-  app.get("/gyms/search", search);
-  app.get("/gyms/nearby", nearby);
+  app.register(async (app) => {
+    app.addHook("onRequest", verifyJWT);
 
-  app.post("/gyms/create", { onRequest: [verifyUserRole("ADMIN")] }, create);
+    app.post("/gyms/create", { onRequest: [verifyUserRole("ADMIN")] }, create);
+  });
 }
